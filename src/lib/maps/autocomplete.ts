@@ -5,11 +5,12 @@ export interface PlaceSuggestion {
   description: string
 }
 
-const SE_ASIA_REGION_CODES = ['SG', 'MY', 'TH', 'ID', 'PH', 'VN']
+export const SE_ASIA_REGION_CODES = ['SG', 'MY', 'TH', 'ID', 'PH', 'VN']
 
 export async function getPlacePredictions(
   input: string,
   sessionToken: google.maps.places.AutocompleteSessionToken,
+  regionCodes: string[] = ['SG'],
 ): Promise<PlaceSuggestion[]> {
   if (!input.trim()) return []
 
@@ -20,7 +21,7 @@ export async function getPlacePredictions(
     const response = await AutocompleteSuggestion.fetchAutocompleteSuggestions({
       input,
       sessionToken,
-      includedRegionCodes: SE_ASIA_REGION_CODES,
+      includedRegionCodes: regionCodes,
     })
 
     return response.suggestions

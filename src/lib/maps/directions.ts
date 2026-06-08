@@ -58,6 +58,7 @@ export async function fetchDrivingRoute(
 export async function fetchTransitRoute(
   origin: string,
   destination: string,
+  departureTime?: Date,
 ): Promise<google.maps.DirectionsResult> {
   return routeWithService({
     origin,
@@ -65,7 +66,7 @@ export async function fetchTransitRoute(
     travelMode: google.maps.TravelMode.TRANSIT,
     unitSystem: google.maps.UnitSystem.METRIC,
     transitOptions: {
-      departureTime: nearestHalfHour(),
+      departureTime: departureTime ?? nearestHalfHour(),
       routingPreference: google.maps.TransitRoutePreference.FEWER_TRANSFERS,
     },
   })
@@ -74,10 +75,11 @@ export async function fetchTransitRoute(
 export async function fetchBothRoutes(
   origin: string,
   destination: string,
+  departureTime?: Date,
 ): Promise<{ driving: google.maps.DirectionsResult; transit: google.maps.DirectionsResult }> {
   const [driving, transit] = await Promise.all([
     fetchDrivingRoute(origin, destination),
-    fetchTransitRoute(origin, destination),
+    fetchTransitRoute(origin, destination, departureTime),
   ])
   return { driving, transit }
 }

@@ -16,6 +16,7 @@ interface LocationAutocompleteProps {
   onConfirm: (description: string) => void
   disabled?: boolean
   className?: string
+  countryCodes?: string[]
 }
 
 export function LocationAutocomplete({
@@ -26,9 +27,10 @@ export function LocationAutocomplete({
   onConfirm,
   disabled = false,
   className,
+  countryCodes,
 }: LocationAutocompleteProps) {
   const { query, suggestions, isOpen, handleInputChange, handleSelect, closeDropdown } =
-    usePlacesAutocomplete()
+    usePlacesAutocomplete(countryCodes)
 
   // Sync external reset (e.g. when pickup clears dropoff)
   const prevValueRef = React.useRef(value)

@@ -4,7 +4,7 @@ import { loadMapsApi } from '@/lib/maps/loader'
 
 const DEBOUNCE_MS = 300
 
-export function usePlacesAutocomplete() {
+export function usePlacesAutocomplete(countryCodes: string[] = ['SG']) {
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState<PlaceSuggestion[]>([])
   const [isOpen, setIsOpen] = useState(false)
@@ -27,6 +27,9 @@ export function usePlacesAutocomplete() {
     }
   }, [])
 
+  const countryCodesRef = useRef(countryCodes)
+  countryCodesRef.current = countryCodes
+
   const handleInputChange = useCallback((value: string) => {
     setQuery(value)
 
@@ -43,7 +46,7 @@ export function usePlacesAutocomplete() {
         await loadMapsApi().catch(() => null)
       }
       if (!sessionTokenRef.current) return
-      const predictions = await getPlacePredictions(value, sessionTokenRef.current)
+      const predictions = await getPlacePredictions(value, sessionTokenRef.current, countryCodesRef.current)
       setSuggestions(predictions)
       setIsOpen(predictions.length > 0)
     }, DEBOUNCE_MS)

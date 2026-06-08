@@ -6,6 +6,8 @@ const baseInputs: CalculatorInputs = {
   pickupLocation: 'Orchard MRT',
   dropoffLocation: 'Marina Bay Sands',
   isGrabSaver: false,
+  saverDate: '',
+  saverTime: '',
   grabFare: 12,
   partySize: 1,
   grabDistanceKm: 5,

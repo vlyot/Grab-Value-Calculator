@@ -20,9 +20,9 @@ interface Props {
 export function CalculatorForm({ inputs, errors, hasResult, setField, onCalculate, onReset }: Props) {
   const { status: routeStatus, error: routeError, fetchRouteData, clearRouteError } = useRouteData(setField)
 
-  function handleRouteReady(origin: string, destination: string) {
+  function handleRouteReady(origin: string, destination: string, saverDate?: string, saverTime?: string) {
     clearRouteError()
-    void fetchRouteData(origin, destination)
+    void fetchRouteData(origin, destination, saverDate, saverTime)
   }
 
   return (

@@ -6,6 +6,8 @@ const INITIAL_INPUTS: CalculatorInputs = {
   pickupLocation: '',
   dropoffLocation: '',
   isGrabSaver: false,
+  saverDate: '',
+  saverTime: '',
   grabFare: 0,
   partySize: 1,
   grabDistanceKm: 0,
@@ -60,6 +62,12 @@ export function useCalculator() {
     setResult(calculateScore(inputs))
   }
 
+  function loadInputs(newInputs: CalculatorInputs) {
+    setInputs(newInputs)
+    setErrors({})
+    setResult(calculateScore(newInputs))
+  }
+
   function handleReset() {
     setInputs(INITIAL_INPUTS)
     setErrors({})
@@ -69,6 +77,7 @@ export function useCalculator() {
   return {
     inputs,
     setField,
+    loadInputs,
     errors,
     result,
     hasResult: result !== null,

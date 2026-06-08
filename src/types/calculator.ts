@@ -3,6 +3,8 @@ export interface CalculatorInputs {
   pickupLocation: string
   dropoffLocation: string
   isGrabSaver: boolean
+  saverDate: string  // 'YYYY-MM-DD', empty = unset
+  saverTime: string  // 'HH:MM', empty = unset
 
   // Grab details
   grabFare: number
@@ -41,6 +43,14 @@ export interface ScoreResult {
     farePerMinute: number
     timeSavedMins: number
   }
+}
+
+export interface HistoryEntry {
+  id: string
+  timestamp: number
+  inputs: CalculatorInputs
+  finalScore: number
+  bandLabel: string
 }
 
 // Sub-input shapes for dimension scorers
